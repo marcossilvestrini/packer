@@ -20,7 +20,8 @@ This project is licensed under the MIT License - see the LICENSE.md file for det
 
 ## Oficial Doc
 
-[Packer Oficial Docs]<https://www.packer.io/>
+[Packer](https://www.packer.io/)
+[Packer Docs](https://www.packer.io/docs)
 
 ## Install Packer in Centos 7\8
 
