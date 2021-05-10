@@ -22,10 +22,8 @@ This project is licensed under the MIT License - see the LICENSE.md file for det
 
 [Packer Oficial Docs]<https://www.packer.io/>
 
-## Install Packer in Rhel Centos 7\8
+## Install Packer in Centos 7\8
 
-## Download Packer
-
-
-
-## Install
+`sudo yum install -y yum-utils`
+`sudo yum-config-manager --add-repo https://rpm.releases.hashicorp.com/RHEL/hashicorp.repo`
+`sudo yum -y install packer`
