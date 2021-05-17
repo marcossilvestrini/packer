@@ -22,9 +22,16 @@ This project is licensed under the MIT License - see the LICENSE.md file for det
 
 [Packer](https://www.packer.io/)
 [Packer Docs](https://www.packer.io/docs)
+[HCL2 Docs](https://www.packer.io/guides/hcl)
 
 ## Install Packer in Centos 7\8
 
-`sudo yum install -y yum-utils`
-`sudo yum-config-manager --add-repo https://rpm.releases.hashicorp.com/RHEL/hashicorp.repo`
-`sudo yum -y install packer`
+```sh
+sudo yum install -y yum-utils
+sudo yum-config-manager --add-repo https://rpm.releases.hashicorp.com/RHEL/hashicorp.repo
+sudo yum -y install packer
+```
+
+## Convert Json Template to HCL2
+
+`packer hcl2_upgrade -with-annotations docker-ubuntu.json`

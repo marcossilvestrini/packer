@@ -1,0 +1,1 @@
+rsync -avzh --exclude=.vagrant --exclude=.git --progress /mnt/projects/packer/ /home/marcos.silvestrini/packer
