@@ -21,9 +21,9 @@ This project is licensed under the MIT License - see the LICENSE.md file for det
 
 ## Oficial Doc
 
-[Packer](https://www.packer.io/)
-[Packer Docs](https://www.packer.io/docs)
-[HCL2 Docs](https://www.packer.io/guides/hcl)
+[Packer](https://www.packer.io/)\
+[Packer Docs](https://www.packer.io/docs)\
+[HCL2 Docs](https://www.packer.io/guides/hcl)\
 [Cloud Init Docs](https://cloudinit.readthedocs.io/en/latest/)
 
 ## Install Packer in Centos 7\8
