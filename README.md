@@ -38,9 +38,97 @@ sudo yum -y install packer
 
 `packer hcl2_upgrade -with-annotations docker-ubuntu.json`
 
-## Packer Files Extecion
+## Packer Files Extencion
 
 ```hcl2
 .pkr.hcl
 .pkr.json
+```
+
+## Blocks
+
+[Examples](https://www.packer.io/docs/templates/hcl_templates/blocks#build)
+
+### [Block Build](https://www.packer.io/docs/templates/hcl_templates/blocks/build)
+
+```hcl2
+# build.pkr.hcl
+build {
+    # use the `name` field to name a build in the logs.
+    # For example this present config will display
+    # "buildname.amazon-ebs.example-1" and "buildname.amazon-ebs.example-2"
+    name = "buildname"
+
+    sources = [
+        # use the optional plural `sources` list to simply use a `source`
+        # without changing any field.
+        "source.amazon-ebs.example-1",
+    ]
+
+    source "source.amazon-ebs.example-2" {
+        # Use the singular `source` block set specific fields.
+        # Note that fields cannot be overwritten, in other words, you cannot
+        # set the 'output' field from the top-level source block and here.
+        output = "different value"
+        name = var.foo
+    }
+
+    provisioner "shell" {
+        scripts = fileset(".", "scripts/{install,secure}.sh")
+    }
+
+    post-processor "shell-local" {
+        inline = ["echo Hello World from ${source.type}.${source.name}"]
+    }
+}
+```
+
+### [Block Locals](https://www.packer.io/docs/templates/hcl_templates/blocks/locals)
+
+```hcl2
+# locals.pkr.hcl
+locals {
+    # locals can be bare values like:
+    wee = local.baz
+    # locals can also be set with other variables :
+    baz = "Foo is '${var.foo}' but not '${local.wee}'"
+}
+
+# Use the singular local block if you need to mark a local as sensitive
+local "mylocal" {
+  expression = "${var.secret_api_key}"
+  sensitive  = true
+}
+```
+
+### [Block Source](https://www.packer.io/docs/templates/hcl_templates/blocks/source)
+
+```hcl2
+sources.pkr.hcl
+source "amazon-ebs" "example-1" {
+    // ...
+}
+```
+
+### [Block Variable](https://www.packer.io/docs/templates/hcl_templates/blocks/variable)
+
+```hcl2
+# variables.pkr.hcl
+variable "foo" {
+    type        = string
+    default     = "the default value of the `foo` variable"
+    description = "description of the `foo` variable"
+    sensitive   = false
+    # When a variable is sensitive all string-values from that variable will be
+    # obfuscated from Packer's output.
+}
+```
+
+### [Block Data](https://www.packer.io/docs/templates/hcl_templates/blocks/data)
+
+```hcl2
+# datasource.pkr.hcl
+data "amazon-ami" "basic-example" {
+  // ...
+}
 ```
