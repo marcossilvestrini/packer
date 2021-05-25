@@ -23,6 +23,7 @@ This project is licensed under the MIT License - see the LICENSE.md file for det
 [Packer](https://www.packer.io/)
 [Packer Docs](https://www.packer.io/docs)
 [HCL2 Docs](https://www.packer.io/guides/hcl)
+[Cloud Init Docs](https://cloudinit.readthedocs.io/en/latest/)
 
 ## Install Packer in Centos 7\8
 
@@ -35,3 +36,10 @@ sudo yum -y install packer
 ## Convert Json Template to HCL2
 
 `packer hcl2_upgrade -with-annotations docker-ubuntu.json`
+
+## Packer Files Extecion
+
+```hcl2
+.pkr.hcl
+.pkr.json
+```
