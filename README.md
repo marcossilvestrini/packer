@@ -47,8 +47,6 @@ sudo yum -y install packer
 
 ## Blocks
 
-[Examples](https://www.packer.io/docs/templates/hcl_templates/blocks#build)
-
 ### [Block Build](https://www.packer.io/docs/templates/hcl_templates/blocks/build)
 
 ```hcl2
