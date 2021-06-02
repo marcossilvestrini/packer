@@ -25,6 +25,9 @@ This project is licensed under the MIT License - see the LICENSE.md file for det
 [Packer Docs](https://www.packer.io/docs)\
 [HCL2 Docs](https://www.packer.io/guides/hcl)\
 [Cloud Init Docs](https://cloudinit.readthedocs.io/en/latest/)
+[Kickstart Centos](https://gainanov.pro/eng-blog/linux/centos-installation-with-kickstart/)
+[Kickstart Configurator Oracle Linux](https://oracle-base.com/articles/linux/kickstart)
+[Install Kickstart Configurator Centos](https://linuxhint.com/install-centos-kickstart/)
 
 ## Install Packer in Centos 7\8
 
