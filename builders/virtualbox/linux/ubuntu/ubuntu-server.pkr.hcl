@@ -4,7 +4,11 @@ source "virtualbox-iso" "basic-example" {
   iso_checksum = "md5:fcd77cd8aa585da4061655045f3f0511"
   ssh_username = "packer"
   ssh_password = "packer"
-  shutdown_command = "echo 'packer' | sudo -S shutdown -P now"
+  boot_command = [
+    "<tab><wait>",
+    " ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ubuntu-ks.cfg<enter>"
+ ]
+ shutdown_command = "echo 'packer' | sudo -S shutdown -P now"
 }
 
 build {
