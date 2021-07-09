@@ -9,8 +9,8 @@ $vmPath = "E:\Servers\Linux\vagrant-ansible"
 $vm = "$($vmPath)\vagrant-ansible.vmx"
 $ip = "192.168.0.33"
 $vmxName = "vagrant-ansible"
-$memoryMB = "8192"
-$processors = "3"
+$memoryMB = "16000"
+$processors = "6"
 
 # Up vmware
 Write-Host "Up Vmware Workstation in path: [$($vmware)]" -BackgroundColor White -ForegroundColor Black

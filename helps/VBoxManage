@@ -1,0 +1,20 @@
+
+# get vm name and ID
+vboxmanage list vms
+"test-centos8" {3508062e-300b-4029-87d5-d7afb0101373}
+
+# list network
+vboxmanage list bridgedifs
+
+# power off VM
+vboxmanage controlvm 3508062e-300b-4029-87d5-d7afb0101373 poweroff
+
+# aborted VM
+vboxmanage startvm 3508062e-300b-4029-87d5-d7afb0101373 --type emergencystop
+
+# power on VM
+vboxmanage startvm 3508062e-300b-4029-87d5-d7afb0101373
+
+# set network
+vboxmanage startvm 3508062e-300b-4029-87d5-d7afb0101373 --type emergencystop
+vboxmanage modifyvm test-centos8  --bridgeadapter1 'enp0s3'

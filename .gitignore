@@ -9,3 +9,6 @@ workspace.code-workspace
 
 # Logs
 *.log
+
+# Packer
+*.iso
