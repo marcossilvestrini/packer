@@ -12,3 +12,4 @@ workspace.code-workspace
 
 # Packer
 *.iso
+**/packer_cache
