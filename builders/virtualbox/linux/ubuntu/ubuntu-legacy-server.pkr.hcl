@@ -20,7 +20,7 @@ variable "preseed_file_name" {
 
 variable "output_directory"{
   type    = string
-  default = "E://Servers//Virtualbox//packer-virtualbox-ubuntu-server-20.04"
+  default = "E://Servers/Virtualbox/packer-virtualbox-ubuntu-server-legacy-20.04"
 }
 
 variable "iso_url"{
@@ -49,7 +49,7 @@ variable "ssh_password"{
 }
 
 source "virtualbox-iso" "ubuntu-server" {
-  boot_command           = ["<esc><wait>", "<esc><wait>", "<enter><wait>", "/install/vmlinuz<wait>", " initrd=/install/initrd.gz", " auto-install/enable=true", " debconf/priority=critical", " preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg<wait>", " -- <wait>", "<enter><wait>"]
+  boot_command     = ["<esc><wait>", "<esc><wait>", "<enter><wait>", "/install/vmlinuz<wait>", " initrd=/install/initrd.gz", " auto-install/enable=true", " debconf/priority=critical", " preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg<wait>", " -- <wait>", "<enter><wait>"]
   boot_wait        = "10s"
   disk_size        = "60000"
   guest_os_type    = "Ubuntu_64"
@@ -62,10 +62,10 @@ source "virtualbox-iso" "ubuntu-server" {
   shutdown_command = "echo 'provision'|sudo -S /sbin/halt -h -p"
   ssh_port         = 22
   ssh_timeout      = "20m"
-  ssh_host         = "${var.ssh_host}"
+  //ssh_host         = "${var.ssh_host}"
   ssh_username     = "${var.ssh_username}"
   ssh_password     = "${var.ssh_password}"
-  vm_name          = "ubuntu-server-20.04-01-${legacy_isotime("2006-01-02")}"
+  vm_name          = "ubuntu-legacy-server-20.04-${legacy_isotime("2006-01-02")}"
   vboxmanage       = [
     //["modifyvm", "{{ .Name }}", "--firmware", "EFI"],
     ["modifyvm", "{{ .Name }}", "--spec-ctrl", "on"],
@@ -73,9 +73,9 @@ source "virtualbox-iso" "ubuntu-server" {
     ["modifyvm", "{{ .Name }}", "--hwvirtex", "on"],
     ["modifyvm", "{{ .Name }}", "--cpus", "${var.numvcpus}"],
     ["modifyvm", "{{ .Name }}", "--memory", "${var.memsize}"]
-    //["modifyvm", "{{.Name}}", "--nic2", "bridged"],
-    //["modifyvm", "{{.Name}}", "--bridgeadapter2", "${var.bridge_adapter}"],
-    //["modifyvm", "{{.Name}}", "--cableconnected2", "on"]
+    //["modifyvm", "{{.Name}}", "--nic1", "bridged"],
+    //["modifyvm", "{{.Name}}", "--bridgeadapter1", "${var.bridge_adapter}"],
+    //["modifyvm", "{{.Name}}", "--cableconnected1", "on"]
   ]
 }
 

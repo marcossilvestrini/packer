@@ -29,6 +29,7 @@ This project is licensed under the MIT License - see the LICENSE.md file for det
 [Kickstart Centos](https://gainanov.pro/eng-blog/linux/centos-installation-with-kickstart/)\
 [Install Kickstart Configurator Centos](https://linuxhint.com/install-centos-kickstart/)\
 [Cloud Init Docs](https://cloudinit.readthedocs.io/en/latest/)
+[Cloud Config Examples](https://cloudinit.readthedocs.io/en/latest/topics/examples.html)
 
 ## Install Packer in Centos 7\8
 

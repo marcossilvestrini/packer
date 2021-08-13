@@ -15,7 +15,7 @@ variable "bridge_adapter" {
 
 variable "output_directory"{
   type    = string
-  default = "E://Servers//Virtualbox//packer-virtualbox-ol8"
+  default = "E://Servers/Virtualbox/packer-virtualbox-ol8"
 }
 
 variable "iso_url"{

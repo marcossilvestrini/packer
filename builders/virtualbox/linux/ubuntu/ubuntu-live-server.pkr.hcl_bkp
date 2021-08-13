@@ -1,0 +1,102 @@
+variable "memsize" {
+  type    = string
+  default = "8096"
+}
+
+variable "numvcpus" {
+  type    = string
+  default = "1"
+}
+
+variable "bridge_adapter" {
+  type    = string
+  default = "Marvell AQtion 5Gbit Network Adapter"
+}
+
+variable "output_directory"{
+  type    = string
+  default = "E://Servers//Virtualbox//packer-virtualbox-ubuntu-live-server-20.04"
+}
+
+variable "iso_url"{
+  type    = string
+  default = "F://ISOS//Linux//ubuntu-20.10-live-server-arm64.iso"
+}
+
+variable "iso_checksum"{
+  type    = string
+  default = "583bf70ddd60d777f083196a02635f0c8e15139eb854cf755b89e19ff0246861"
+}
+
+variable "ssh_host"{
+  type    = string
+  default = "192.168.0.133"
+}
+
+variable "ssh_username"{
+  type    = string
+  default = "provision"
+}
+
+variable "ssh_password"{
+  type    = string
+  default = "provision"
+}
+
+source "virtualbox-iso" "ubuntu-server" {
+  boot_command     = [
+    "<esc><esc><esc><esc>e<wait>",
+    "<del><del><del><del><del><del><del><del>",
+    "<del><del><del><del><del><del><del><del>",
+    "<del><del><del><del><del><del><del><del>",
+    "<del><del><del><del><del><del><del><del>",
+    "<del><del><del><del><del><del><del><del>",
+    "<del><del><del><del><del><del><del><del>",
+    "<del><del><del><del><del><del><del><del>",
+    "<del><del><del><del><del><del><del><del>",
+    "<del><del><del><del><del><del><del><del>",
+    "<del><del><del><del><del><del><del><del>",
+    "<del><del><del><del><del><del><del><del>",
+    "<del><del><del><del><del><del><del><del>",
+    "<del><del><del><del><del><del><del><del>",
+    "<del><del><del><del><del><del><del><del>",
+    "linux /casper/vmlinuz --- autoinstall ds=\"nocloud-net;seedfrom=http://{{.HTTPIP}}:{{.HTTPPort}}/\"<enter><wait>",
+    "initrd /casper/initrd<enter><wait>",
+    "boot<enter>",
+    "<enter><f10><wait>"
+  ]
+  boot_wait        = "5s"
+  disk_size        = "60000"
+  guest_os_type    = "Ubuntu_64"
+  http_directory   = "http"
+  iso_checksum     = "${var.iso_checksum}"
+  iso_url          = "${var.iso_url}"
+  output_directory = "${var.output_directory}"
+  shutdown_command = "shutdown -P now"
+  ssh_port         = 22
+  ssh_timeout      = "20m"
+  ssh_host         = "${var.ssh_host}"
+  ssh_username     = "${var.ssh_username}"
+  ssh_password     = "${var.ssh_password}"
+  vm_name          = "ubuntu-live-server-20.04-${legacy_isotime("2006-01-02")}"
+  vboxmanage       = [
+    ["modifyvm", "{{ .Name }}", "--firmware", "EFI"],
+    //["modifyvm", "{{ .Name }}", "--spec-ctrl", "on"],
+    //["modifyvm", "{{ .Name }}", "--triplefaultreset", "on"],
+    //["modifyvm", "{{ .Name }}", "--hwvirtex", "on"],
+    ["modifyvm", "{{ .Name }}", "--cpus", "${var.numvcpus}"],
+    ["modifyvm", "{{ .Name }}", "--memory", "${var.memsize}"]
+    //["modifyvm", "{{.Name}}", "--nic1", "bridged"],
+    //["modifyvm", "{{.Name}}", "--bridgeadapter1", "${var.bridge_adapter}"],
+    //["modifyvm", "{{.Name}}", "--cableconnected1", "on"]
+  ]
+}
+
+build {
+  sources = ["source.virtualbox-iso.ubuntu-server"]
+  # provisioner "shell" {
+  #   execute_command = "echo 'provision' | {{ .Vars }} sudo -S -E bash '{{ .Path }}'"
+  #   scripts         = ["scripts/foo.sh"]
+  # }
+}
+
