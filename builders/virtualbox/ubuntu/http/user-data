@@ -1,0 +1,14 @@
+#cloud-config
+autoinstall:
+  version: 1
+  identity:
+    hostname: ubuntu-server
+    username: provision
+    # Generated via: printf provision | mkpasswd -m sha-512 -S provision. -s
+    password: "$6$provision.$QWml9vdkdeK0UuUGte0SfuhdJCtombJqm4ZcLEMmzCXBWVbp3PAFpor68Prn8Gntxnhro10RGMLW0JHF2hJcM/"
+
+  early-commands:
+    # otherwise packer tries to connect and exceed max attempts:
+    - systemctl stop ssh
+  ssh:
+    install-server: true

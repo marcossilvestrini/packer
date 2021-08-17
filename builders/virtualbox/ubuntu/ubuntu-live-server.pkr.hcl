@@ -45,12 +45,12 @@ variable "headless" {
 
 variable "ssh_username"{
   type    = string
-  default = "vagrant"
+  default = "provision"
 }
 
 variable "ssh_password"{
   type    = string
-  default = "vagrant"
+  default = "provision"
 }
 
 locals {
@@ -70,7 +70,7 @@ source "virtualbox-iso" "ubuntu-server" {
   iso_checksum            = "${var.iso_checksum}"
   iso_url                 = "${var.iso_url}"
   output_directory        = "${var.output_directory}"
-  shutdown_command        = "echo 'vagrant' | sudo -S shutdown -P now"
+  shutdown_command        = "echo 'provision' | sudo -S shutdown -P now"
   ssh_port                = 22
   ssh_timeout             = "10000s"
   //ssh_host                = "${var.ssh_host}"
@@ -92,8 +92,8 @@ source "virtualbox-iso" "ubuntu-server" {
 
 build {
   sources = ["source.virtualbox-iso.ubuntu-server"]
-  # vagranter "shell" {
-  #   execute_command = "echo 'vagrant' | {{ .Vars }} sudo -S -E bash '{{ .Path }}'"
+  # provisioner "shell" {
+  #   execute_command = "echo 'provision' | {{ .Vars }} sudo -S -E bash '{{ .Path }}'"
   #   scripts         = ["scripts/foo.sh"]
   # }
 }
