@@ -61,10 +61,10 @@ source "virtualbox-iso" "ubuntu-server" {
   boot_command            = [" <wait>", " <wait>", " <wait>", " <wait>", " <wait>", "c", "<wait>", "set gfxpayload=keep", "<enter><wait>", "linux /casper/vmlinuz quiet<wait>", " autoinstall<wait>", " ds=nocloud-net<wait>", "\\;s=http://<wait>", "{{ .HTTPIP }}<wait>", ":{{ .HTTPPort }}/<wait>", " ---", "<enter><wait>", "initrd /casper/initrd<wait>", "<enter><wait>", "boot<enter><wait>"]
   boot_wait               = "5s"
   disk_size               = "60000"
+  hard_drive_interface    = "sata"
   guest_additions_path    = "VBoxGuestAdditions_{{ .Version }}.iso"
   guest_additions_url     = "${var.guest_additions_url}"
   guest_os_type           = "Ubuntu_64"
-  hard_drive_interface    = "sata"
   headless                = "${var.headless}"
   http_directory          = "${local.http_directory}"
   iso_checksum            = "${var.iso_checksum}"
