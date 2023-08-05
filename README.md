@@ -48,6 +48,8 @@ sudo yum -y install packer
 ```hcl2
 .pkr.hcl
 .pkr.json
+.pkrvars.hcl
+.auto.pkrvars.hcl
 ```
 
 ## Blocks
@@ -107,7 +109,7 @@ local "mylocal" {
 ### [Block Source](https://www.packer.io/docs/templates/hcl_templates/blocks/source)
 
 ```hcl2
-sources.pkr.hcl
+# sources.pkr.hcl
 source "amazon-ebs" "example-1" {
     // ...
 }
@@ -135,3 +137,40 @@ data "amazon-ami" "basic-example" {
   // ...
 }
 ```
+
+
+## Examples Command for Packer Build
+
+```sh
+#first run init
+packer init win2019.pkr.hcl
+
+#packer build
+packer build -force -var-file win2019.pkrvar.hcl .
+
+#packer build with LOG
+PACKER_LOG=1 packer build -force -var-file win2019.pkrvar.hcl .
+
+#packer build with variables
+packer build -force -var-file win2022.pkrvar.hcl -var "vcenter_username=administrator@vsphere.local" -var "vcenter_password=VMware1!" -var "winrm_password=VMware1!" .
+
+packer build -force -var-file=config/ansible.pkrvars.hcl -var-file=config/build.pkrvars.hcl -var-file=config/common.pkrvars.hcl -var-file=config/vsphere.pkrvars.hcl builds/linux/debian/11
+
+#packer build with debug
+packer build -force -on-error=ask -var-file=config/ansible.pkrvars.hcl -var-file=config/build.pkrvars.hcl -var-file=config/common.pkrvars.hcl -var-file=config/vsphere.pkrvars.hcl builds/linux/debian/11
+
+#packer build specific build
+packer build -force \
+      --only vsphere-iso.windows-server-standard-core \
+      -var-file="config/vsphere.pkrvars.hcl" \
+      -var-file="config/build.pkrvars.hcl" \
+      -var-file="config/common.pkrvars.hcl" \
+      builds/windows/server/2022
+```
+
+## Encrypt Passwords for build
+
+### Encrypt in Linux
+
+```sh
+mkpasswd --method=SHA-512
